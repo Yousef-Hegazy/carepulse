@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { LoginForm } from "~/components/forms/LoginForm";
 
 export function Welcome() {
   return (
@@ -13,7 +14,7 @@ export function Welcome() {
             className="mb-12 h-10 w-fit"
           />
 
-          {/* <PatientForm /> */}
+          <LoginForm />
 
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">© 2024 CarePluse</p>

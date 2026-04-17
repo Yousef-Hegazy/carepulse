@@ -1,11 +1,6 @@
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -23,9 +18,35 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 1. The most important setting:
+      // How long the data stays "fresh" before a background refetch is allowed.
+      // 1-5 minutes is the sweet spot for most apps.
+      staleTime: 1000 * 60 * 5,
+
+      // 2. How long unused data stays in the cache before being deleted.
+      // Usually keep this longer than staleTime.
+      gcTime: 1000 * 60 * 10,
+
+      // 3. Prevent annoying refetches when the user clicks back into the browser.
+      // Set to false if your data doesn't change every few seconds.
+      refetchOnWindowFocus: false,
+
+      // 4. Retry logic: Don't spam your server if it's down.
+      // Fail faster in development to debug easily.
+      retry: false,
+
+      // 5. Exponential backoff: Wait longer between each retry.
+      // retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+    },
+  },
+});
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +54,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -52,10 +73,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    details = error.status === 404 ? "The requested page could not be found." : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
