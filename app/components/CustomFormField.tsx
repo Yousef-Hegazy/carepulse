@@ -9,6 +9,7 @@ import { Field, FieldError, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import type { InputHTMLAttributes } from "react";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -26,23 +27,28 @@ interface CustomProps {
   placeholder?: string;
   iconSrc?: string;
   iconAlt?: string;
+  icon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   disabled?: boolean;
   dateFormat?: string;
   showTimeSelect?: boolean;
   children?: React.ReactNode;
   renderSkeleton?: (field: any) => React.ReactNode;
   fieldType: FormFieldType;
+  type?: InputHTMLAttributes<HTMLInputElement>["type"];
 }
 
 const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
   switch (props.fieldType) {
     case FormFieldType.INPUT:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
+        <div className="flex items-center rounded-md border border-dark-500 bg-dark-400 px-4">
           {props.iconSrc && (
-            <img src={props.iconSrc} height={24} width={24} alt={props.iconAlt || "icon"} className="ml-2" />
+            <img src={props.iconSrc} height={24} width={24} alt={props.iconAlt || "icon"} className="size-5" />
           )}
-          <Input placeholder={props.placeholder} {...field} className="shad-input border-0" />
+          {props.icon && props.icon}
+          <Input placeholder={props.placeholder} {...field} className="shad-input border-0" type={props.type} />
+          {props.endIcon && props.endIcon}
         </div>
       );
     case FormFieldType.TEXTAREA:

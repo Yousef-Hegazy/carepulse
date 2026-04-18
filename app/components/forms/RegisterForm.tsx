@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { Eye, EyeClosed, Lock, LogIn, Mail } from "lucide-react";
+import { Eye, EyeClosed, Lock, UserPlus2 } from "lucide-react";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -8,7 +8,7 @@ import "react-phone-number-input/style.css";
 import { Link, useNavigate } from "react-router";
 import { z } from "zod";
 import { useAuthStore } from "../../../stores/authStore";
-import { LoginValidation } from "../../lib/validations/authValidations";
+import { RegisterValidation } from "../../lib/validations/authValidations";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { Button } from "../ui/button";
@@ -17,32 +17,36 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { toastManager } from "../ui/toast";
 
-type LoginForm = z.infer<typeof LoginValidation>;
+type RegisterForm = z.infer<typeof RegisterValidation>;
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const login = useAuthStore((state) => state.login);
+  const register = useAuthStore((state) => state.register);
 
-  const form = useForm<LoginForm>({
-    resolver: zodResolver(LoginValidation),
+  const form = useForm<RegisterForm>({
+    resolver: zodResolver(RegisterValidation),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const { mutate: loginMutate, isPending } = useMutation({
-    mutationFn: login,
+  const { mutate: registerMutate, isPending } = useMutation({
+    mutationFn: register,
     onSuccess: (data) => {
-      if (data) {
+      console.log({ data });
+      const newUser = data;
+
+      if (newUser) {
         navigate(`/auth-success?type=patient`);
       }
     },
     onError: (error) => {
       console.log({ error });
-      toastManager.add({
+       toastManager.add({
         title: (error as any).title?.toString(),
         description: (error as any).detail?.toString(),
         type: "error",
@@ -50,7 +54,7 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = (values: LoginForm) => loginMutate(values);
+  const onSubmit = (values: RegisterForm) => registerMutate(values);
 
   return (
     <FormProvider {...form}>
@@ -66,9 +70,9 @@ export const LoginForm = () => {
           name="email"
           label={t("auth.email")}
           placeholder="johndoe@gmail.com"
-          icon={<Mail className="size-5" />}
+          iconSrc="/assets/icons/email.svg"
+          iconAlt="email"
         />
-
         <CustomFormField
           fieldType={FormFieldType.INPUT}
           control={form.control}
@@ -115,14 +119,14 @@ export const LoginForm = () => {
         </RadioGroup>
 
         <SubmitButton isLoading={isPending}>
-          <LogIn />
-          {t("auth.login")}
+          <UserPlus2 />
+          {t("auth.register")}
         </SubmitButton>
 
         <p className="text-sm text-neutral-300">
-          {t("auth.dontHaveAnAccount")}{" "}
+          {t("auth.alreadyHaveAnAccount")}{" "}
           <Button asChild variant="link" size="sm" className="px-0">
-            <Link to="?type=register">{t("auth.register")}</Link>
+            <Link to="?type=login">{t("auth.login")}</Link>
           </Button>
         </p>
       </form>

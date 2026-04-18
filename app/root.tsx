@@ -1,9 +1,26 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLocation,
+  useNavigate,
+} from "react-router";
 
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import "../i18n";
+import { useAuthStore } from "../stores/authStore";
 import type { Route } from "./+types/root";
 import "./app.css";
+import { AnchoredToastProvider, ToastProvider } from "./components/ui/toast";
+import { TooltipProvider } from "./components/ui/tooltip";
+// import { setupInterceptors } from "./lib/interceptors";
+import "./lib/interceptors";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,8 +62,29 @@ const queryClient = new QueryClient({
 });
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const {
+    i18n: { language },
+  } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const authStore = useAuthStore((state) => state);
+
+  useEffect(() => {
+    if (language === "ar") {
+      document.documentElement.lang = "ar-SA";
+      document.documentElement.dir = "rtl";
+    } else {
+      document.documentElement.lang = "en-US";
+      document.documentElement.dir = "ltr";
+    }
+  }, [language]);
+
+  // useEffect(() => {
+  //   setupInterceptors({ location, navigate, authStore });
+  // }, [authStore.auth?.accessToken]);
+
   return (
-    <html lang="en" className="dark">
+    <html className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -54,7 +92,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <ToastProvider>
+              <AnchoredToastProvider>{children}</AnchoredToastProvider>
+            </ToastProvider>
+          </TooltipProvider>
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

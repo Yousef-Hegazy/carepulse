@@ -1,0 +1,147 @@
+{
+    "failed": "Action failed",
+    "success": "Action completed successfully",
+    "indexPage": {
+        "copyright": "{{year}} CarePulse. All rights reserved.",
+        "admin": "Administrator"
+    },
+    "auth": {
+        "login": "Login",
+        "register": "Create account",
+        "password": "Password",
+        "passwordMinError": "Password must be at least 6 characters long",
+        "passwordUppercaseError": "Password must contain at least one uppercase letter",
+        "passwordLowercaseError": "Password must contain at least one lowercase letter",
+        "passwordNumberError": "Password must contain at least one number",
+        "passwordSpecialError": "Password must contain at least one special character",
+        "email": "Email address",
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Please enter a valid email address",
+        "loginError": "Login failed. Please check your details and try again.",
+        "dontHaveAnAccount": "Don't have an account?",
+        "alreadyHaveAnAccount": "Do you already have an account?"
+    },
+    "registerPatientForm": {
+        "steps": {
+            "personalInfo": {
+                "title": "Personal Information"
+            },
+            "medicalInfo": {
+                "title": "Medical Information"
+            },
+            "identification": {
+                "title": "Identity and Verification"
+            }
+        },
+        "fields": {
+            "fullName": "Full Name",
+            "emailAddress": "Email Address",
+            "phoneNumber": "Phone Number",
+            "dateOfBirth": "Date of Birth",
+            "address": "Address",
+            "occupation": "Occupation",
+            "emergencyContactName": "Emergency Contact Name",
+            "emergencyContactPhone": "Emergency Contact Phone",
+            "gender": "Gender",
+            "primaryCarePhysician": "Primary Care Physician",
+            "insuranceProvider": "Insurance Provider",
+            "insurancePolicyNumber": "Insurance Policy Number",
+            "allergies": "Allergies",
+            "currentMedication": "Current Medications",
+            "familyMedicalHistory": "Family Medical History",
+            "pastMedicalHistory": "Past Medical History",
+            "identificationType": "Identification Type",
+            "identificationNumber": "Identification Number",
+            "scannedIdentification": "Scanned Copy of Identification",
+            "privacyConsent": "I acknowledge that I have reviewed and agree to the Privacy Policy"
+        },
+        "genderOptions": {
+            "male": "Male",
+            "female": "Female",
+            "other": "Other"
+        },
+        "actions": {
+            "continue": "Continue",
+            "back": "Back",
+            "submit": "Submit"
+        },
+        "validation": {
+            "nameRequired": "Please enter your name",
+            "emailRequired": "Please enter your email address",
+            "emailInvalid": "Please enter a valid email address",
+            "phoneRequired": "Please enter your phone number",
+            "birthDateRequired": "Please select your date of birth",
+            "addressRequired": "Please enter your address",
+            "occupationRequired": "Please enter your occupation",
+            "emergencyContactNameRequired": "Please enter the name of your emergency contact",
+            "emergencyContactPhoneRequired": "Please enter your emergency contact's phone number",
+            "primaryCarePhysicianRequired": "Please select your primary care physician",
+            "insuranceProviderRequired": "Please select your insurance provider",
+            "insurancePolicyNumberRequired": "Please enter your insurance policy number",
+            "identificationTypeRequired": "Please select your identification type",
+            "identificationNumberRequired": "Please enter your identification number",
+            "scannedIdentificationRequired": "Please upload your ID."
+        },
+        "notifications": {
+            "incompleteForms": "Please ensure all forms are completed and data entered is correct.",
+            "personalInfoInvalid": "Please ensure all personal information is correct.",
+            "medicalInfoInvalid": "Please ensure all medical information is correct.",
+            "identificationInvalid": "Please verify and confirm your identity information.",
+            "submitSuccess": "Your information has been successfully submitted!",
+            "submitError": "An error occurred while submitting your information. Please try again."
+        }
+    },
+    "patientRegisterPage": {
+        "welcome": "Hello",
+        "subtitle": "Tell us more about you.",
+        "logoAlt": "CarePulse logo",
+        "registerImageAlt": "Register"
+    },
+    "patientForm": {
+        "title": "Hi there",
+        "patientSubtitle": "Book your first appointment",
+        "doctorSubtitle": "Manage your appointments easily",
+        "name": "Name",
+        "nameError": "Name must be at least 2 letters long",
+        "phone": "Phone",
+        "phoneError": "Phone number must be at least 6 digits long",
+        "submit": "Get started now",
+        "successMessage": "Appointment scheduled successfully!",
+        "errorMessage": "Appointment scheduling failed. Please try again.",
+        "doctorDisabledMessage": "Doctor's choice is currently unavailable.",
+        "patient": "Patient",
+        "doctor": "Doctor"
+    },
+    "languageSwitcher": {
+        "label": "Language"
+    },
+    "oauthSuccess": {
+        "redirectMessage": "Please wait while you are redirected...",
+        "errorMessage": "Failed to verify user file. Please try again."
+    },
+    "newAppointmentForm": {
+        "title": "New Appointment",
+        "subtitle": "Book Your Appointment Now",
+        "fields": {
+            "scheduleDate": "Appointment Date",
+            "scheduleTime": "Appointment Time",
+            "primaryPhysician": "Attending Physician",
+            "reason": "Reason",
+            "notes": "Notes"
+        },
+        "actions": {
+            "submit": "Submit"
+        },
+        "validation": {
+            "scheduleDateRequired": "Please select an appointment date",
+            "scheduleTimeRequired": "Please select an appointment time",
+            "primaryPhysicianRequired": "Please select an attending physician",
+            "reasonRequired": "Please enter the reason for the appointment"
+        },
+        "notifications": {
+            "invalidForm": "Please ensure all fields are completed correctly.",
+            "submitSuccess": "Your appointment has been scheduled successfully!",
+            "submitError": "An error occurred while scheduling your appointment. Please try again."
+        }
+    }
+}
