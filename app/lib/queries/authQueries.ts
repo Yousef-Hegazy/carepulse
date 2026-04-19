@@ -16,7 +16,7 @@ function getProfile(type: "patient" | "doctor" | "admin") {
     }
 }
 
-export const getProfileQuery = ({ type = "patient", enabled = true }: { type: "patient" | "doctor" | "admin", enabled?: boolean }) => useQuery({
+export const getProfileQuery = ({ type, enabled = true }: { type: "patient" | "doctor" | "admin", enabled?: boolean }) => useQuery({
     queryKey: [QUERY_KEYS.PROFILE, type],
     queryFn: async () => {
         let res = await getProfile(type);

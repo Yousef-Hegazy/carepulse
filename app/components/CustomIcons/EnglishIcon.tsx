@@ -9,7 +9,7 @@ const EnglishIcon = (props: React.SVGProps<SVGSVGElement>) => {
       {...props}
     >
       <path d="M0,0h7410v3900H0" fill="#b31942" />
-      <path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#FFF" stroke-width="300" />
+      <path d="M0,450H7410m0,600H0m0,600H7410m0,600H0m0,600H7410m0,600H0" stroke="#FFF" strokeWidth="300" />
       <path d="M0,0h2964v2100H0" fill="#0a3161" />
       <g fill="#FFF">
         <g id="s18">

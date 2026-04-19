@@ -1,9 +1,13 @@
 import { Navigate, Outlet, useLocation } from "react-router";
 import { useAuthStore } from "../../stores/authStore";
 
-export function ProtectedRoute() {
-  const isAuth = useAuthStore((s) => s.isAuthenticated);
+export default function ProtectedRoute() {
+  const token = useAuthStore((s) => s.auth?.accessToken);
   const location = useLocation();
 
-  return isAuth() ? <Outlet /> : <Navigate to="/" state={{ from: location }} replace />;
+  if (!token) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
+  return <Outlet />;
 }

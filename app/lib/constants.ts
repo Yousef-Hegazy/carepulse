@@ -1,3 +1,6 @@
+import type z from "zod";
+import type { zGender } from "../../generated/zod.gen";
+
 export const IdentificationTypes = [
   "Birth Certificate",
   "Driver's License",

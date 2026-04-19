@@ -19,7 +19,8 @@
         "emailInvalid": "Please enter a valid email address",
         "loginError": "Login failed. Please check your details and try again.",
         "dontHaveAnAccount": "Don't have an account?",
-        "alreadyHaveAnAccount": "Do you already have an account?"
+        "alreadyHaveAnAccount": "Do you already have an account?",
+        "registerError": "Account creation failed. Please check your details and try again."
     },
     "registerPatientForm": {
         "steps": {
@@ -71,6 +72,7 @@
             "emailInvalid": "Please enter a valid email address",
             "phoneRequired": "Please enter your phone number",
             "birthDateRequired": "Please select your date of birth",
+            "genderRequired": "Please select your gender",
             "addressRequired": "Please enter your address",
             "occupationRequired": "Please enter your occupation",
             "emergencyContactNameRequired": "Please enter the name of your emergency contact",
@@ -80,7 +82,8 @@
             "insurancePolicyNumberRequired": "Please enter your insurance policy number",
             "identificationTypeRequired": "Please select your identification type",
             "identificationNumberRequired": "Please enter your identification number",
-            "scannedIdentificationRequired": "Please upload your ID."
+            "scannedIdentificationRequired": "Please upload your ID.",
+            "privacyConsentRequired": "You must agree to the privacy policy"
         },
         "notifications": {
             "incompleteForms": "Please ensure all forms are completed and data entered is correct.",

@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router";
 import { useAuthStore } from "../../stores/authStore";
 
-export function ProfileNeededRoute() {
+export default function ProfileNeededRoute() {
   const profile = useAuthStore((s) => s.profile);
   const location = useLocation();
 

@@ -12,7 +12,7 @@ const AuthSuccess = () => {
   const auth = useAuthStore((state) => state.auth);
   const setProfile = useAuthStore((state) => state.setProfile);
 
-  const type = sp.get("type") as "patient" | "admin" | "doctor";
+  const type = (sp.get("type") || "patient") as "patient" | "admin" | "doctor";
 
   const { data, error, isSuccess, isError, isFetching } = getProfileQuery({ type, enabled: !!auth?.accessToken });
 
@@ -20,10 +20,14 @@ const AuthSuccess = () => {
     if (isSuccess && data?.id) {
       setProfile(data);
       navigate("/new-appointment");
-    } else if (isError) {
-      navigate("/");
+    } else if (isError && type === "patient") {
+      setProfile(null);
+      navigate("/new-patient");
+    } else {
+      setProfile(null);
+      navigate("/new-patient");
     }
-  }, [isSuccess, isError, data, setProfile, navigate]);
+  }, [isSuccess, isError, data, setProfile, navigate, type]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-y-4 h-screen w-full">

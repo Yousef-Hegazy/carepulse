@@ -3,13 +3,13 @@ const ArabicIcon = (props: React.SVGProps<SVGSVGElement>) => {
     <svg
       width="900"
       height="600"
-      enable-background="new 0 0 1773 1182"
+      enableBackground="new 0 0 1773 1182"
       version="1.1"
       viewBox="0 0 900 600"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path id="green" d="m0 600h900v-600h-900z" fill="#005430" stroke-width=".375" />
+      <path id="green" d="m0 600h900v-600h-900z" fill="#005430" strokeWidth=".375" />
       <g id="white" transform="scale(.375)">
         <g id="shahada">
           <g transform="matrix(7.3042,0,0,-6.7531,1800,635.53)">

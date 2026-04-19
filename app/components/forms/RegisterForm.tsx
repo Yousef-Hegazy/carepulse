@@ -46,8 +46,8 @@ export const RegisterForm = () => {
     },
     onError: (error) => {
       console.log({ error });
-       toastManager.add({
-        title: (error as any).title?.toString(),
+      toastManager.add({
+        title: (error as any)?.title || (error as any)?.message || t("auth.registerError"),
         description: (error as any).detail?.toString(),
         type: "error",
       });

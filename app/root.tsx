@@ -65,9 +65,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const {
     i18n: { language },
   } = useTranslation();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const authStore = useAuthStore((state) => state);
 
   useEffect(() => {
     if (language === "ar") {
@@ -94,7 +91,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
-            <ToastProvider>
+            <ToastProvider position="top-center">
               <AnchoredToastProvider>{children}</AnchoredToastProvider>
             </ToastProvider>
           </TooltipProvider>

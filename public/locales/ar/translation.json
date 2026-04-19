@@ -19,7 +19,8 @@
         "emailInvalid": "يرجى إدخال عنوان بريد إلكتروني صحيح",
         "loginError": "فشل تسجيل الدخول. يرجى التحقق من بياناتك والمحاولة مرة أخرى.",
         "dontHaveAnAccount": "ليس لديك حساب؟",
-        "alreadyHaveAnAccount": "هل لديك حساب بالفعل؟"
+        "alreadyHaveAnAccount": "هل لديك حساب بالفعل؟",
+        "registerError": "فشل إنشاء الحساب. يرجى التحقق من بياناتك والمحاولة مرة أخرى."
     },
     "registerPatientForm": {
         "steps": {
@@ -71,6 +72,7 @@
             "emailInvalid": "يرجى إدخال عنوان بريد إلكتروني صحيح",
             "phoneRequired": "يرجى إدخال رقم هاتفك",
             "birthDateRequired": "يرجى اختيار تاريخ الميلاد",
+            "genderRequired": "يرجى اختيار الجنس",
             "addressRequired": "يرجى إدخال عنوانك",
             "occupationRequired": "يرجى إدخال مهنتك",
             "emergencyContactNameRequired": "يرجى إدخال اسم جهة الاتصال في الطوارئ",
@@ -80,7 +82,8 @@
             "insurancePolicyNumberRequired": "يرجى إدخال رقم وثيقة التأمين",
             "identificationTypeRequired": "يرجى اختيار نوع الهوية",
             "identificationNumberRequired": "يرجى إدخال رقم الهوية",
-            "scannedIdentificationRequired": "يرجى رفع وثيقة الهوية"
+            "scannedIdentificationRequired": "يرجى رفع وثيقة الهوية",
+            "privacyConsentRequired": "يجب الموافقة على سياسة الخصوصية"
         },
         "notifications": {
             "incompleteForms": "يرجى التأكد من تعبئة جميع النماذج وإدخال بيانات صحيحة",
