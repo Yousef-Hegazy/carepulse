@@ -3,11 +3,6 @@ import { Link, useSearchParams } from "react-router";
 import { LoginForm } from "~/components/forms/LoginForm";
 import { RegisterForm } from "~/components/forms/RegisterForm";
 import LanguageSwitcher from "~/components/LanguageSwitcher";
-import type { Route } from "./+types/home";
-
-export function meta({}: Route.MetaArgs) {
-  return [{ title: "Carepulse" }, { name: "description", content: "Welcome to Carepulse!" }];
-}
 
 export default function Home() {
   const [sp] = useSearchParams();

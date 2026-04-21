@@ -1,20 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "../i18n";
-import { useAuthStore } from "../stores/authStore";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AnchoredToastProvider, ToastProvider } from "./components/ui/toast";
@@ -34,6 +24,10 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export function meta({}: Route.MetaArgs) {
+  return [{ title: "Carepulse" }, { name: "description", content: "Welcome to Carepulse!" }];
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {

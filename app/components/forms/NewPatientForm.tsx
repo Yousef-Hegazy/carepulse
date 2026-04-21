@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Label } from "~/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import { SelectItem } from "~/components/ui/select";
-import { Doctors, IdentificationTypes } from "~/lib/constants";
+import { Doctors, GendersList, IdentificationTypes } from "~/lib/constants";
 
 import { useMutation } from "@tanstack/react-query";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,7 +16,6 @@ import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router";
 import { NewPatientValidation } from "~/lib/validations/patientValidations";
 import { postApiPatients, type PostApiPatientsData } from "../../../generated";
-import { zGender } from "../../../generated/zod.gen";
 import { useAuthStore } from "../../../stores/authStore";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { FileUploader } from "../FileUploader";
@@ -27,12 +26,16 @@ import { toastManager } from "../ui/toast";
 type PatientFormValues = z.infer<typeof NewPatientValidation>;
 
 const RegisterForm = () => {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const navigate = useNavigate();
   const setProfile = useAuthStore((s) => s.setProfile);
 
   const form = useForm<PatientFormValues>({
     resolver: zodResolver(NewPatientValidation),
+    mode: "all"
   });
 
   const { mutate, isPending } = useMutation({
@@ -101,7 +104,6 @@ const RegisterForm = () => {
             control={form.control}
             name="FullName"
             label={t("registerPatientForm.fields.fullName")}
-            placeholder="John Doe"
             iconSrc="/assets/icons/user.svg"
             iconAlt="user"
           />
@@ -113,7 +115,7 @@ const RegisterForm = () => {
               control={form.control}
               name="email"
               label="Email address"
-              placeholder="johndoe@gmail.com"
+              
               iconSrc="/assets/icons/email.svg"
               iconAlt="email"
             /> */}
@@ -123,7 +125,6 @@ const RegisterForm = () => {
               control={form.control}
               name="PhoneNumber"
               label={t("registerPatientForm.fields.phoneNumber")}
-              placeholder="(555) 123-4567"
             />
           </div>
 
@@ -148,11 +149,11 @@ const RegisterForm = () => {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    {Object.values(zGender.enum).map((option, i) => (
-                      <div key={option + i} className="radio-group">
-                        <RadioGroupItem value={option} id={option} />
-                        <Label htmlFor={option} className="cursor-pointer">
-                          {option}
+                    {GendersList.map((option, i) => (
+                      <div key={option.value + i} className="radio-group">
+                        <RadioGroupItem value={option.value} id={option.value} />
+                        <Label htmlFor={option.value} className="cursor-pointer">
+                          {language === "ar" ? option.labelAr : option.labelEn}
                         </Label>
                       </div>
                     ))}
@@ -169,7 +170,6 @@ const RegisterForm = () => {
               control={form.control}
               name="Address"
               label={t("registerPatientForm.fields.address")}
-              placeholder="14 street, New york, NY - 5101"
             />
 
             <CustomFormField
@@ -177,7 +177,6 @@ const RegisterForm = () => {
               control={form.control}
               name="Occupation"
               label={t("registerPatientForm.fields.occupation")}
-              placeholder="Software Engineer"
             />
           </div>
 
@@ -188,7 +187,6 @@ const RegisterForm = () => {
               control={form.control}
               name="EmergencyContactName"
               label={t("registerPatientForm.fields.emergencyContactName")}
-              placeholder="Guardian's name"
             />
 
             <CustomFormField
@@ -196,7 +194,6 @@ const RegisterForm = () => {
               control={form.control}
               name="EmergencyContactNumber"
               label={t("registerPatientForm.fields.emergencyContactPhone")}
-              placeholder="(555) 123-4567"
             />
           </div>
         </section>
@@ -212,10 +209,9 @@ const RegisterForm = () => {
             control={form.control}
             name="PrimaryPhysicianName"
             label={t("registerPatientForm.fields.primaryCarePhysician")}
-            placeholder="Select a physician"
           >
             {Doctors.map((doctor, i) => (
-              <SelectItem key={doctor.name + i} value={doctor.name}>
+              <SelectItem key={doctor.nameEn + i} value={doctor.nameEn}>
                 <div className="flex cursor-pointer items-center gap-2">
                   <img
                     src={doctor.image}
@@ -224,7 +220,7 @@ const RegisterForm = () => {
                     alt="doctor"
                     className="rounded-full border border-dark-500"
                   />
-                  <p>{doctor.name}</p>
+                  <p>{language === "ar" ? doctor.nameAr : doctor.nameEn}</p>
                 </div>
               </SelectItem>
             ))}
@@ -237,7 +233,6 @@ const RegisterForm = () => {
               control={form.control}
               name="InsuranceProvider"
               label={t("registerPatientForm.fields.insuranceProvider")}
-              placeholder="BlueCross BlueShield"
             />
 
             <CustomFormField
@@ -245,7 +240,6 @@ const RegisterForm = () => {
               control={form.control}
               name="InsurancePolicyNumber"
               label={t("registerPatientForm.fields.insurancePolicyNumber")}
-              placeholder="ABC123456789"
             />
           </div>
 
@@ -256,7 +250,6 @@ const RegisterForm = () => {
               control={form.control}
               name="Allergies"
               label={t("registerPatientForm.fields.allergies")}
-              placeholder="Peanuts, Penicillin, Pollen"
             />
 
             <CustomFormField
@@ -264,7 +257,6 @@ const RegisterForm = () => {
               control={form.control}
               name="CurrentMedication"
               label={t("registerPatientForm.fields.currentMedication")}
-              placeholder="Ibuprofen 200mg, Levothyroxine 50mcg"
             />
           </div>
 
@@ -275,7 +267,6 @@ const RegisterForm = () => {
               control={form.control}
               name="FamilyMedicalHistory"
               label={t("registerPatientForm.fields.familyMedicalHistory")}
-              placeholder="Mother had brain cancer, Father has hypertension"
             />
 
             <CustomFormField
@@ -283,7 +274,6 @@ const RegisterForm = () => {
               control={form.control}
               name="PastMedicalHistory"
               label={t("registerPatientForm.fields.pastMedicalHistory")}
-              placeholder="Appendectomy in 2015, Asthma diagnosis in childhood"
             />
           </div>
         </section>
@@ -298,11 +288,10 @@ const RegisterForm = () => {
             control={form.control}
             name="IdentificationType"
             label={t("registerPatientForm.fields.identificationType")}
-            placeholder="Select identification type"
           >
             {IdentificationTypes.map((type, i) => (
-              <SelectItem key={type + i} value={type}>
-                {type}
+              <SelectItem key={type.nameEn + i} value={type.nameEn}>
+                {language === "ar" ? type.nameAr : type.nameEn}
               </SelectItem>
             ))}
           </CustomFormField>
@@ -312,7 +301,6 @@ const RegisterForm = () => {
             control={form.control}
             name="IdentificationNumber"
             label={t("registerPatientForm.fields.identificationNumber")}
-            placeholder="123456789"
           />
 
           <CustomFormField
@@ -328,33 +316,12 @@ const RegisterForm = () => {
           />
         </section>
 
-        {/* <section className="space-y-6">
-          <div className="mb-9 space-y-1">
-            <h2 className="sub-header">{t("registerPatientForm.rivacyConsent")}</h2>
-          </div> */}
-
-        {/* <CustomFormField
-            fieldType={FormFieldType.CHECKBOX}
-            control={form.control}
-            name="TreatmentConsent"
-            label="I consent to receive treatment for my health condition."
-          />
-
-          <CustomFormField
-            fieldType={FormFieldType.CHECKBOX}
-            control={form.control}
-            name="DisclosureConsent"
-            label="I consent to the use and disclosure of my health
-            information for treatment purposes."
-          /> */}
-
         <CustomFormField
           fieldType={FormFieldType.CHECKBOX}
           control={form.control}
           name="PrivacyConsent"
           label={t("registerPatientForm.fields.privacyConsent")}
         />
-        {/* </section> */}
 
         <SubmitButton isLoading={isPending}>{t("registerPatientForm.actions.submit")}</SubmitButton>
       </form>

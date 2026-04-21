@@ -22,7 +22,7 @@ export interface AuthState {
     register: (request: RegisterRequest) => Promise<AccessTokenResponse | null>;
     logout: () => void;
     refresh: (request: RefreshRequest) => Promise<AccessTokenResponse | null>;
-    getUserProfile: () => Promise<PatientResponse | null>;
+    // getUserProfile: () => Promise<PatientResponse | null>;
 }
 
 const createAuthStore: StateCreator<AuthState> = function (set, get) {
@@ -40,10 +40,8 @@ const createAuthStore: StateCreator<AuthState> = function (set, get) {
         },
         async login(request) {
             try {
-                const res = await postApiAuthLogin({ body: request });
-                if (res.error) {
-                    throw res.error;
-                }
+                const res = await postApiAuthLogin({ body: request, throwOnError: true });
+
                 const auth = res.data || null;
                 set({ auth });
                 return auth;
@@ -54,7 +52,7 @@ const createAuthStore: StateCreator<AuthState> = function (set, get) {
         },
         async register(request) {
             try {
-                const res = await postApiAuthRegister({ body: request });
+                const res = await postApiAuthRegister({ body: request, throwOnError: false });
 
                 if (res.error?.errors) {
                     throw new Error(Object.values(res.error.errors).flat().join(' '));
@@ -82,11 +80,8 @@ const createAuthStore: StateCreator<AuthState> = function (set, get) {
         },
         async refresh(request) {
             try {
-                const res = await postApiAuthRefresh({ body: request });
-                if (res.error) {
-                    throw res.error;
-                }
-                const auth = res.data || null;
+                const res = await postApiAuthRefresh({ body: request, throwOnError: true });
+                const auth = res.data;
                 set({ auth });
                 return auth;
             } catch (error) {
@@ -94,25 +89,23 @@ const createAuthStore: StateCreator<AuthState> = function (set, get) {
                 throw error;
             }
         },
-        async getUserProfile() {
-            if (!get().auth?.accessToken) {
-                set({ profile: null });
-                return null;
-            }
+        // async getUserProfile() {
+        //     if (!get().auth?.accessToken) {
+        //         set({ profile: null });
+        //         return null;
+        //     }
 
-            try {
-                const res = await getApiPatientsProfile();
-                if (res.error) {
-                    throw res.error;
-                }
-                const profile = res.data || null;
-                set({ profile });
-                return profile;
-            } catch (error) {
-                set({ profile: null });
-                throw error;
-            }
-        }
+        //     try {
+        //         const res = await getApiPatientsProfile({ throwOnError: true });
+
+        //         const profile = res.data;
+        //         set({ profile });
+        //         return profile;
+        //     } catch (error) {
+        //         set({ profile: null });
+        //         throw error;
+        //     }
+        // }
     };
 };
 

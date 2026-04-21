@@ -43,7 +43,7 @@ export const LoginForm = () => {
     onError: (error) => {
       console.log({ error });
       toastManager.add({
-        title: (error as any).title?.toString() || t("auth.loginError"),
+        title: (error as any).title?.toString() || (error as any).message?.toString() || t("auth.loginError"),
         description: (error as any).detail?.toString(),
         type: "error",
       });

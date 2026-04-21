@@ -17,15 +17,20 @@ const AuthSuccess = () => {
   const { data, error, isSuccess, isError, isFetching } = getProfileQuery({ type, enabled: !!auth?.accessToken });
 
   useEffect(() => {
+    if (isFetching) return;
     if (isSuccess && data?.id) {
       setProfile(data);
       navigate("/new-appointment");
-    } else if (isError && type === "patient") {
+    } else if (isError && (error as any)?.status === 404) {
+      console.log(error)
       setProfile(null);
-      navigate("/new-patient");
+      
+      if (type === "patient") {
+        navigate("/new-patient");
+      }
     } else {
       setProfile(null);
-      navigate("/new-patient");
+      navigate("/");
     }
   }, [isSuccess, isError, data, setProfile, navigate, type]);
 
