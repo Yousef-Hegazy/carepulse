@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { createSearchParams, useNavigate } from "react-router";
 import { z } from "zod";
 import { Doctors } from "~/lib/constants";
 import { NewAppointmentValidation } from "~/lib/validations/appointmentValidations";
@@ -11,6 +11,7 @@ import CustomFormField, { FormFieldType } from "../CustomFormField";
 import SubmitButton from "../SubmitButton";
 import { SelectItem } from "../ui/select";
 import { toastManager } from "../ui/toast";
+import { isAxiosError } from "axios";
 
 type AppointmentFormValues = z.infer<typeof NewAppointmentValidation>;
 
@@ -30,26 +31,44 @@ const NewAppointmentForm = () => {
     mutationFn: (body: Parameters<typeof postApiAppointments>[0]["body"]) =>
       postApiAppointments({ body, throwOnError: true }),
     onSuccess: (res) => {
+      console.log(res)
       toastManager.add({
         type: "success",
         title: t("newAppointmentForm.notifications.submitSuccess"),
       });
-      navigate("/appointment-success", { state: res.data });
+
+      navigate({
+        pathname: "/appointments/success",
+        search: res.data ? createSearchParams({ data: JSON.stringify(res.data) }).toString() : undefined,
+      });
     },
     onError: (err) => {
-      toastManager.add({
-        type: "error",
-        title: (err as any)?.detail || t("newAppointmentForm.notifications.submitError"),
-      });
+      console.log({err});
+      if (isAxiosError(err)) {
+        toastManager.add({
+          type: "error",
+          title: String(err.response?.data || t("newAppointmentForm.notifications.submitError")),
+        });
+      } else {
+        toastManager.add({
+          type: "error",
+          title: err.message || t("newAppointmentForm.notifications.submitError"),
+        });
+      }
     },
   });
 
   const onSubmit = (values: AppointmentFormValues) => {
-    const dateStr = values.scheduleDate.toISOString().split("T")[0];
-    const [hours, minutes] = values.scheduleTime.split(":");
+    const dateStr = new Date(
+      Date.UTC(values.scheduleDate.getFullYear(), values.scheduleDate.getMonth(), values.scheduleDate.getDate()),
+    )
+      .toISOString()
+      .split("T")[0];
+
+    const fullDateTime = `${dateStr}T${values.scheduleTime}:00.000Z`;
 
     mutate({
-      schedule: `${dateStr}T${hours}:${minutes}:00.000Z`,
+      schedule: fullDateTime,
       primaryPhysician: values.primaryPhysician,
       reason: values.reason,
       notes: values.notes,

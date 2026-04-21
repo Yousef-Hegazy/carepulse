@@ -52,7 +52,7 @@ const RegisterForm = () => {
     },
     onSuccess: (data) => {
       setProfile(data);
-      navigate("/new-appointment", { replace: true });
+      navigate("/appointments/new", { replace: true });
     },
     onError: (err) => {
       console.log("Error submitting form:", err);

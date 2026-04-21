@@ -40,7 +40,7 @@ export default function NewAppointment() {
         height={1000}
         width={1000}
         alt="appointment"
-        className="side-img max-w-72"
+        className="side-img max-w-72 xl:max-w-sm"
       />
     </div>
   );

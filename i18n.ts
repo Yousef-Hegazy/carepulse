@@ -6,11 +6,13 @@ import commonEn from './locales/en/common';
 import registerPatientFormEn from './locales/en/registerPatientForm';
 import patientRegisterPageEn from './locales/en/patientRegisterPage';
 import newAppointmentFormEn from './locales/en/newAppointmentForm';
+import appointmentSuccessPageEn from './locales/en/appointmentSuccessPage';
 
 import commonAr from './locales/ar/common';
 import registerPatientFormAr from './locales/ar/registerPatientForm';
 import patientRegisterPageAr from './locales/ar/patientRegisterPage';
 import newAppointmentFormAr from './locales/ar/newAppointmentForm';
+import appointmentSuccessPageAr from './locales/ar/appointmentSuccessPage';
 
 const resources = {
   en: {
@@ -18,6 +20,7 @@ const resources = {
     registerPatientForm: registerPatientFormEn,
     patientRegisterPage: patientRegisterPageEn,
     newAppointmentForm: newAppointmentFormEn,
+    appointmentSuccessPage: appointmentSuccessPageEn,
     oauthSuccess: commonEn.oauthSuccess
   },
   ar: {
@@ -25,6 +28,7 @@ const resources = {
     registerPatientForm: registerPatientFormAr,
     patientRegisterPage: patientRegisterPageAr,
     newAppointmentForm: newAppointmentFormAr,
+    appointmentSuccessPage: appointmentSuccessPageAr,
     oauthSuccess: commonAr.oauthSuccess
   }
 } as const;
@@ -39,6 +43,7 @@ i18n
       'registerPatientForm',
       'patientRegisterPage',
       'newAppointmentForm',
+      'appointmentSuccessPage',
       'oauthSuccess'
     ],
     defaultNS: 'common',
@@ -47,6 +52,7 @@ i18n
       'registerPatientForm',
       'patientRegisterPage',
       'newAppointmentForm',
+      'appointmentSuccessPage',
       'oauthSuccess'
     ],
     supportedLngs: ['en', 'ar'],

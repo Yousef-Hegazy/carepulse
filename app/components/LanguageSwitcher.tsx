@@ -36,11 +36,11 @@ const LanguageSwitcher = () => {
           <EnglishIcon className="size-4.5" />
           English
         </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
         <DropdownMenuCheckboxItem checked={language === "ar"} onClick={() => changeLanguage("ar")}>
           <ArabicIcon className="size-4.5" />
           العربية
         </DropdownMenuCheckboxItem>
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );

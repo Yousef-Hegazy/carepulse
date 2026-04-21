@@ -20,7 +20,7 @@ const AuthSuccess = () => {
     if (isFetching) return;
     if (isSuccess && data?.id) {
       setProfile(data);
-      navigate("/new-appointment", { replace: true });
+      navigate("/appointments/new", { replace: true });
     } else if (isError && (error as any)?.status === 404) {
       console.log(error)
       setProfile(null);

@@ -2,7 +2,7 @@ const patientRegisterPage = {
   patientRegisterPage: {
     welcome: "مرحباً",
     subtitle: "أخبرنا المزيد عنك.",
-    logoAlt: "شعار CarePulse",
+    logoAlt: "شعار كير بالس",
     registerImageAlt: "التسجيل"
   }
 } as const;

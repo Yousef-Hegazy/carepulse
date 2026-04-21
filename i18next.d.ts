@@ -4,6 +4,7 @@ import commonEn from "./locales/en/common";
 import registerPatientFormEn from "./locales/en/registerPatientForm";
 import patientRegisterPageEn from "./locales/en/patientRegisterPage";
 import newAppointmentFormEn from "./locales/en/newAppointmentForm";
+import appointmentSuccessPageEn from "./locales/en/appointmentSuccessPage";
 
 declare module "i18next" {
   interface CustomTypeOptions {
@@ -13,6 +14,7 @@ declare module "i18next" {
       registerPatientForm: typeof registerPatientFormEn;
       patientRegisterPage: typeof patientRegisterPageEn;
       newAppointmentForm: typeof newAppointmentFormEn;
+      appointmentSuccessPage: typeof appointmentSuccessPageEn;
       oauthSuccess: typeof commonEn["oauthSuccess"];
     };
   }

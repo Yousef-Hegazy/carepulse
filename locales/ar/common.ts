@@ -2,7 +2,7 @@ const common = {
   failed: "فشل الإجراء",
   success: "تم الإجراء بنجاح",
   indexPage: {
-    copyright: "{{year}} CarePulse. جميع الحقوق محفوظة.",
+    copyright: "{{year}} كير بالس. جميع الحقوق محفوظة.",
     admin: "المسؤول"
   },
   auth: {
