@@ -8,7 +8,7 @@ import { useAuthStore } from "../../stores/authStore";
 const AuthSuccess = () => {
   const navigate = useNavigate();
   const [sp] = useSearchParams();
-  const { t } = useTranslation();
+  const { t } = useTranslation("oauthSuccess");
   const auth = useAuthStore((state) => state.auth);
   const setProfile = useAuthStore((state) => state.setProfile);
 
@@ -20,23 +20,23 @@ const AuthSuccess = () => {
     if (isFetching) return;
     if (isSuccess && data?.id) {
       setProfile(data);
-      navigate("/new-appointment");
+      navigate("/new-appointment", { replace: true });
     } else if (isError && (error as any)?.status === 404) {
       console.log(error)
       setProfile(null);
       
       if (type === "patient") {
-        navigate("/new-patient");
+        navigate("/new-patient", { replace: true });
       }
     } else {
       setProfile(null);
-      navigate("/");
+      navigate("/", { replace: true });
     }
   }, [isSuccess, isError, data, setProfile, navigate, type]);
 
   return (
     <div className="flex flex-col items-center justify-center gap-y-4 h-screen w-full">
-      <p className="text-lg">{t("oauthSuccess.redirectMessage")}</p>
+      <p className="text-lg">{t("redirectMessage")}</p>
       {isFetching ? <Spinner className="size-8" /> : isError ? <p className="text-red-500">{error.message}</p> : null}
     </div>
   );

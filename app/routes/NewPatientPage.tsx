@@ -3,7 +3,8 @@ import NewPatientForm from "~/components/forms/NewPatientForm";
 import LanguageSwitcher from "~/components/LanguageSwitcher";
 
 const NewPatientPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("patientRegisterPage");
+  const { t: ct } = useTranslation("common");
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -23,9 +24,7 @@ const NewPatientPage = () => {
 
           <NewPatientForm />
 
-          <p className="copyright py-12">
-            {t("indexPage.copyright", { year: new Date().getFullYear() })}
-          </p>
+          <p className="copyright py-12">{ct("indexPage.copyright", { year: String(new Date().getFullYear()) })}</p>
         </div>
       </section>
 

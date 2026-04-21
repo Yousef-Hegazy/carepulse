@@ -1,15 +1,15 @@
 /* eslint-disable no-unused-vars */
 import type { E164Number } from "libphonenumber-js/core";
 import ReactDatePicker from "react-datepicker";
-import { Controller, type Control, type ControllerProps, type FieldValues } from "react-hook-form";
+import { Controller, type ControllerProps, type FieldValues } from "react-hook-form";
 import PhoneInput from "react-phone-number-input";
 
+import type { InputHTMLAttributes } from "react";
 import { Checkbox } from "./ui/checkbox";
 import { Field, FieldError, FieldLabel } from "./ui/field";
 import { Input } from "./ui/input";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
-import type { InputHTMLAttributes } from "react";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -36,6 +36,10 @@ interface CustomProps {
   renderSkeleton?: (field: any) => React.ReactNode;
   fieldType: FormFieldType;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
+  onlyPast?: boolean; // For date picker, restrict to past and dates only,
+  onlyFuture?: boolean; // For date picker, restrict to future dates only
+  noPast?: boolean; // For date picker, restrict to future and present dates
+  noFuture?: boolean; // For date picker, restrict to past and present dates
 }
 
 const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
@@ -78,15 +82,29 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
       );
     case FormFieldType.DATE_PICKER:
       return (
-        <div className="flex rounded-md border border-dark-500 bg-dark-400">
-          <img src="/assets/icons/calendar.svg" height={24} width={24} alt="user" className="ml-2" />
+        <div className="flex rounded-md border border-dark-500 bg-dark-400 gap-2 ps-4">
+          <img src="/assets/icons/calendar.svg" height={24} width={24} alt="user" />
           <ReactDatePicker
             showTimeSelect={props.showTimeSelect ?? false}
             selected={field.value}
             onChange={(date: any) => field.onChange(date)}
             timeInputLabel="Time:"
-            dateFormat={props.dateFormat ?? "MM/dd/yyyy"}
+            dateFormat={props.dateFormat ?? "yyyy/MM/dd"}
             wrapperClassName="date-picker"
+            maxDate={
+              props.onlyPast
+                ? new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 1)
+                : props.noFuture
+                  ? new Date()
+                  : undefined
+            }
+            minDate={
+              props.onlyFuture
+                ? new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() + 1)
+                : props.noPast
+                  ? new Date()
+                  : undefined
+            }
           />
         </div>
       );

@@ -1,19 +1,19 @@
 // import the original type declarations
 import "i18next";
-// import all namespaces (for the default language, only)
-import ns1 from "./public/locales/en/translation.json";
-import ns2 from "./public/locales/ar/translation.json";
+import commonEn from "./locales/en/common";
+import registerPatientFormEn from "./locales/en/registerPatientForm";
+import patientRegisterPageEn from "./locales/en/patientRegisterPage";
+import newAppointmentFormEn from "./locales/en/newAppointmentForm";
 
 declare module "i18next" {
-  // Extend CustomTypeOptions
   interface CustomTypeOptions {
-    // custom namespace type, if you changed it
-    defaultNS: "ns1";
-    // custom resources type
+    defaultNS: "common";
     resources: {
-      ns1: typeof ns1;
-      ns2: typeof ns2;
+      common: typeof commonEn;
+      registerPatientForm: typeof registerPatientFormEn;
+      patientRegisterPage: typeof patientRegisterPageEn;
+      newAppointmentForm: typeof newAppointmentFormEn;
+      oauthSuccess: typeof commonEn["oauthSuccess"];
     };
-    // other
   }
 }

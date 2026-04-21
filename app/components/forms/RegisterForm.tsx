@@ -23,7 +23,7 @@ export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const register = useAuthStore((state) => state.register);
 
   const form = useForm<RegisterForm>({

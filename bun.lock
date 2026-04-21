@@ -17,7 +17,9 @@
         "cmdk": "^1.1.1",
         "i18next": "^26.0.5",
         "i18next-browser-languagedetector": "^8.2.1",
+        "i18next-chained-backend": "^5.0.3",
         "i18next-http-backend": "^3.0.4",
+        "i18next-localstorage-backend": "^4.3.1",
         "input-otp": "^1.4.2",
         "isbot": "^5.1.36",
         "lucide-react": "^1.8.0",
@@ -912,7 +914,11 @@
 
     "i18next-browser-languagedetector": ["i18next-browser-languagedetector@8.2.1", "", { "dependencies": { "@babel/runtime": "^7.23.2" } }, "sha512-bZg8+4bdmaOiApD7N7BPT9W8MLZG+nPTOFlLiJiT8uzKXFjhxw4v2ierCXOwB5sFDMtuA5G4kgYZ0AznZxQ/cw=="],
 
+    "i18next-chained-backend": ["i18next-chained-backend@5.0.3", "", { "dependencies": { "@babel/runtime": "^7.28.4" } }, "sha512-VUwc+yFpZzmIvtPfSdTv1+CjgZGZwGug6qHyIuSES/n7RDhVARFxthjML0anUMJVjlvLfRW/x6+U4UrxXBflmw=="],
+
     "i18next-http-backend": ["i18next-http-backend@3.0.4", "", { "dependencies": { "cross-fetch": "4.1.0" } }, "sha512-udwrBIE6cNpqn1gRAqRULq3+7MzIIuaiKRWrz++dVz5SqWW2VwXmPJtAgkI0JtMLFaADC9qNmnZAxWAhsxXx2g=="],
+
+    "i18next-localstorage-backend": ["i18next-localstorage-backend@4.3.1", "", { "dependencies": { "@babel/runtime": "^7.28.4" } }, "sha512-ry8WNBanUs55rsRZs9+xaZWRxCoTEMMOf+2vNSfzzJqDPbHaf0eMFMrtYp/2ocxU6Xrxfwz17Fdz0rSs3Kw39Q=="],
 
     "iconv-lite": ["iconv-lite@0.4.24", "", { "dependencies": { "safer-buffer": ">= 2.1.2 < 3" } }, "sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA=="],
 

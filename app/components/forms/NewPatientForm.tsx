@@ -10,12 +10,10 @@ import { SelectItem } from "~/components/ui/select";
 import { Doctors, GendersList, IdentificationTypes } from "~/lib/constants";
 
 import { useMutation } from "@tanstack/react-query";
-import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
-import "react-phone-number-input/style.css";
 import { useNavigate } from "react-router";
 import { NewPatientValidation } from "~/lib/validations/patientValidations";
-import { postApiPatients, type PostApiPatientsData } from "../../../generated";
+import { client } from "../../../generated/client.gen";
 import { useAuthStore } from "../../../stores/authStore";
 import CustomFormField, { FormFieldType } from "../CustomFormField";
 import { FileUploader } from "../FileUploader";
@@ -29,30 +27,32 @@ const RegisterForm = () => {
   const {
     t,
     i18n: { language },
-  } = useTranslation();
+  } = useTranslation("registerPatientForm");
+  const { t: pt } = useTranslation("patientRegisterPage");
   const navigate = useNavigate();
   const setProfile = useAuthStore((s) => s.setProfile);
 
   const form = useForm<PatientFormValues>({
     resolver: zodResolver(NewPatientValidation),
-    mode: "all"
+    mode: "all",
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: FormData) => {
-      const res = await postApiPatients({
-        body: data as PostApiPatientsData["body"],
+      const res = await client.post({
+        url: "/api/patients",
+        body: data,
+        throwOnError: true,
+        headers: {
+          "Content-Type": null,
+        },
       });
 
-      if (res.error || !res.data) {
-        throw res.error;
-      }
-
-      return res.data;
+      return res.data as any;
     },
     onSuccess: (data) => {
       setProfile(data);
-      navigate("/new-appointment");
+      navigate("/new-appointment", { replace: true });
     },
     onError: (err) => {
       console.log("Error submitting form:", err);
@@ -78,9 +78,24 @@ const RegisterForm = () => {
         continue;
       }
 
+      if (key === "BirthDate") {
+        const value = Date.UTC(val.getFullYear(), val.getMonth(), val.getDate());
+        formData.append(key, new Date(value).toISOString());
+        continue;
+      }
+
       formData.append(key, String(val));
     }
 
+    console.log(Object.fromEntries(formData.entries()));
+    // const value = Date.UTC(values.BirthDate.getFullYear(), values.BirthDate.getMonth(), values.BirthDate.getDate());
+    // const file = new FormData();
+    // file.append("IdentificationDocument", values.IdentificationDocument[0]);
+    // mutate({
+    //   ...values,
+    //   BirthDate: new Date(value).toISOString(),
+    //   IdentificationDocument: JSON.stringify(file.get("IdentificationDocument")),
+    // } as unknown as PostApiPatientsData["body"]);
     mutate(formData);
   };
 
@@ -88,8 +103,8 @@ const RegisterForm = () => {
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex-1 space-y-12">
         <section className="space-y-4">
-          <h1 className="header">{t("patientRegisterPage.welcome")} 👋</h1>
-          <p className="text-dark-700">{t("patientRegisterPage.subtitle")}</p>
+          <h1 className="header">{pt("patientRegisterPage.welcome")} 👋</h1>
+          <p className="text-dark-700">{pt("patientRegisterPage.subtitle")}</p>
         </section>
 
         <section className="space-y-6">
@@ -135,6 +150,7 @@ const RegisterForm = () => {
               control={form.control}
               name="BirthDate"
               label={t("registerPatientForm.fields.dateOfBirth")}
+              noFuture
             />
 
             <CustomFormField

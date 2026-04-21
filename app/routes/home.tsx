@@ -7,7 +7,7 @@ import LanguageSwitcher from "~/components/LanguageSwitcher";
 export default function Home() {
   const [sp] = useSearchParams();
   const isRegister = sp.get("type") === "register";
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
 
   return (
     <div className="flex h-screen max-h-screen">
@@ -29,7 +29,7 @@ export default function Home() {
 
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
-              © {t("indexPage.copyright", { year: new Date().getFullYear() })}
+              © {t("indexPage.copyright", { year: String(new Date().getFullYear()) })}
             </p>
             <Link to="/?admin=true" className="text-green-500">
               {t("indexPage.admin")}

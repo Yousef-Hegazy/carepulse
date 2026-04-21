@@ -22,7 +22,7 @@ type LoginForm = z.infer<typeof LoginValidation>;
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t } = useTranslation("common");
   const login = useAuthStore((state) => state.login);
 
   const form = useForm<LoginForm>({

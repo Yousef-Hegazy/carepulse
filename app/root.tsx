@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
-
 import { useEffect } from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import { useTranslation } from "react-i18next";
+import "react-phone-number-input/style.css";
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import "../i18n";
 import type { Route } from "./+types/root";
 import "./app.css";
