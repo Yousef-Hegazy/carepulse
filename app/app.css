@@ -274,7 +274,11 @@ body {
   }
 
   .shad-alert-dialog {
-    @apply space-y-5 bg-dark-400! border-dark-500! outline-none!;
+    @apply space-y-5 bg-dark-400! border-dark-500! outline-none! w-full!;
+  }
+
+  div[role="alertdialog"] {
+    @apply w-full! max-w-lg!
   }
 
   .shad-sheet-content button {

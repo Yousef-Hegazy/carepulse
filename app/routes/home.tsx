@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
+import AdminForm from "~/components/AdminForm";
 import { LoginForm } from "~/components/forms/LoginForm";
 import { RegisterForm } from "~/components/forms/RegisterForm";
 import LanguageSwitcher from "~/components/LanguageSwitcher";
@@ -31,9 +32,7 @@ export default function Home() {
             <p className="justify-items-end text-dark-600 xl:text-left">
               © {t("indexPage.copyright", { year: String(new Date().getFullYear()) })}
             </p>
-            <Link to="/?admin=true" className="text-green-500">
-              {t("indexPage.admin")}
-            </Link>
+            <AdminForm />
           </div>
         </div>
       </section>

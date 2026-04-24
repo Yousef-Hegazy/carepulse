@@ -3,7 +3,11 @@ const common = {
   success: "تم الإجراء بنجاح",
   indexPage: {
     copyright: "{{year}} كير بالس. جميع الحقوق محفوظة.",
-    admin: "المسؤول"
+    admin: "المسؤول",
+    passkeyTitle: "التحقق من صلاحية المسؤول",
+    passkeyDescription: "للوصول إلى صفحة المسؤول، يرجى إدخال مفتاح المرور.",
+    passkeyError: "مفتاح المرور غير صحيح. يرجى المحاولة مرة أخرى.",
+    passkeyButton: "أدخل مفتاح المرور"
   },
   auth: {
     login: "تسجيل الدخول",

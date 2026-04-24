@@ -3,7 +3,11 @@ const common = {
   success: "Action completed successfully",
   indexPage: {
     copyright: "{{year}} CarePulse. All rights reserved.",
-    admin: "Administrator"
+    admin: "Administrator",
+    passkeyTitle: "Admin Access Verification",
+    passkeyDescription: "To access the admin page, please enter the passkey.",
+    passkeyError: "Invalid passkey. Please try again.",
+    passkeyButton: "Enter Admin Passkey"
   },
   auth: {
     login: "Login",
