@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
+import { useMutation } from "@tanstack/react-query";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -12,7 +12,10 @@ import {
   AlertDialogTitle,
 } from "~/components/ui/alert-dialog";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "~/components/ui/input-otp";
-import { encryptKey } from "~/lib/utils";
+import { getApiCarePulseAuthIsAdmin } from "../../generated";
+import { useAuthStore } from "../../stores/authStore";
+import { Button } from "./ui/button";
+import { Spinner } from "./ui/spinner";
 
 interface PasskeyModalProps {
   open: boolean;
@@ -21,26 +24,45 @@ interface PasskeyModalProps {
 
 export const PasskeyModal = ({ open, setOpen }: PasskeyModalProps) => {
   const navigate = useNavigate();
+  const login = useAuthStore((s) => s.login);
   const { t } = useTranslation("common");
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
 
+  const { mutate: validatePasskey, isPending } = useMutation({
+    mutationFn: async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+
+      if (passkey === import.meta.env.VITE_ADMIN_PASSKEY) {
+        const auth = await login({
+          email: import.meta.env.VITE_ADMIN_EMAIL!,
+          password: import.meta.env.VITE_ADMIN_PASSWORD!,
+        });
+
+        const isAdmin = await getApiCarePulseAuthIsAdmin({
+          throwOnError: true,
+        });
+
+        return { auth, isAdmin: isAdmin.data };
+      } else {
+        setError(t("indexPage.passkeyError"));
+        throw new Error("Invalid passkey");
+      }
+    },
+    onSuccess: (data) => {
+      if (data?.isAdmin && data?.auth) {
+        navigate("/admin");
+      }
+      setOpen(false);
+    },
+    onError: (err) => {
+      setError(t("indexPage.passkeyError"));
+      setOpen(true);
+    },
+  });
+
   const closeModal = () => {
     setOpen(false);
-  };
-
-  const validatePasskey = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-
-    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
-      const encryptedKey = encryptKey(passkey);
-
-      localStorage.setItem("accessKey", encryptedKey);
-
-      setOpen(false);
-    } else {
-      setError(t("indexPage.passkeyError"));
-    }
   };
 
   return (
@@ -75,9 +97,9 @@ export const PasskeyModal = ({ open, setOpen }: PasskeyModalProps) => {
           {error && <p className="shad-error text-14-regular mt-4 flex justify-center">{error}</p>}
         </div>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={(e) => validatePasskey(e)} className="shad-primary-btn w-full">
-            {t("indexPage.passkeyButton")}
-          </AlertDialogAction>
+          <Button onClick={(e) => validatePasskey(e)} className="shad-primary-btn w-full">
+            {isPending ? <Spinner /> : null} {t("indexPage.passkeyButton")}
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

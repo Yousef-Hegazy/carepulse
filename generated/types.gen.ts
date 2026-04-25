@@ -29,7 +29,7 @@ export type CreateAppointmentRequest = {
     schedule?: string;
     primaryPhysician?: string;
     reason?: string;
-    notes?: string;
+    notes?: null | string;
 };
 
 export type ForgotPasswordRequest = {
@@ -405,6 +405,22 @@ export type PostApiPatientsResponses = {
 };
 
 export type PostApiPatientsResponse = PostApiPatientsResponses[keyof PostApiPatientsResponses];
+
+export type GetApiCarePulseAuthIsAdminData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/CarePulseAuth/isAdmin';
+};
+
+export type GetApiCarePulseAuthIsAdminResponses = {
+    /**
+     * OK
+     */
+    200: boolean;
+};
+
+export type GetApiCarePulseAuthIsAdminResponse = GetApiCarePulseAuthIsAdminResponses[keyof GetApiCarePulseAuthIsAdminResponses];
 
 export type PostApiAppointmentsData = {
     body: CreateAppointmentRequest;

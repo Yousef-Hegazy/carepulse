@@ -2,7 +2,7 @@
 
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { GetApiAuthManageInfoData, GetApiAuthManageInfoErrors, GetApiAuthManageInfoResponses, GetApiPatientsProfileData, GetApiPatientsProfileResponses, MapIdentityApiApiAuthConfirmEmailData, MapIdentityApiApiAuthConfirmEmailResponses, PostApiAppointmentsData, PostApiAppointmentsResponses, PostApiAuthForgotPasswordData, PostApiAuthForgotPasswordErrors, PostApiAuthForgotPasswordResponses, PostApiAuthLoginData, PostApiAuthLoginResponses, PostApiAuthManage2FaData, PostApiAuthManage2FaErrors, PostApiAuthManage2FaResponses, PostApiAuthManageInfoData, PostApiAuthManageInfoErrors, PostApiAuthManageInfoResponses, PostApiAuthRefreshData, PostApiAuthRefreshResponses, PostApiAuthRegisterData, PostApiAuthRegisterErrors, PostApiAuthRegisterResponses, PostApiAuthResendConfirmationEmailData, PostApiAuthResendConfirmationEmailResponses, PostApiAuthResetPasswordData, PostApiAuthResetPasswordErrors, PostApiAuthResetPasswordResponses, PostApiPatientsData, PostApiPatientsResponses } from './types.gen';
+import type { GetApiAuthManageInfoData, GetApiAuthManageInfoErrors, GetApiAuthManageInfoResponses, GetApiCarePulseAuthIsAdminData, GetApiCarePulseAuthIsAdminResponses, GetApiPatientsProfileData, GetApiPatientsProfileResponses, MapIdentityApiApiAuthConfirmEmailData, MapIdentityApiApiAuthConfirmEmailResponses, PostApiAppointmentsData, PostApiAppointmentsResponses, PostApiAuthForgotPasswordData, PostApiAuthForgotPasswordErrors, PostApiAuthForgotPasswordResponses, PostApiAuthLoginData, PostApiAuthLoginResponses, PostApiAuthManage2FaData, PostApiAuthManage2FaErrors, PostApiAuthManage2FaResponses, PostApiAuthManageInfoData, PostApiAuthManageInfoErrors, PostApiAuthManageInfoResponses, PostApiAuthRefreshData, PostApiAuthRefreshResponses, PostApiAuthRegisterData, PostApiAuthRegisterErrors, PostApiAuthRegisterResponses, PostApiAuthResendConfirmationEmailData, PostApiAuthResendConfirmationEmailResponses, PostApiAuthResetPasswordData, PostApiAuthResetPasswordErrors, PostApiAuthResetPasswordResponses, PostApiPatientsData, PostApiPatientsResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -117,6 +117,12 @@ export const postApiPatients = <ThrowOnError extends boolean = false>(options: O
         'Content-Type': 'application/x-www-form-urlencoded',
         ...options.headers
     }
+});
+
+export const getApiCarePulseAuthIsAdmin = <ThrowOnError extends boolean = false>(options?: Options<GetApiCarePulseAuthIsAdminData, ThrowOnError>) => (options?.client ?? client).get<GetApiCarePulseAuthIsAdminResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/api/CarePulseAuth/isAdmin',
+    ...options
 });
 
 export const postApiAppointments = <ThrowOnError extends boolean = false>(options: Options<PostApiAppointmentsData, ThrowOnError>) => (options.client ?? client).post<PostApiAppointmentsResponses, unknown, ThrowOnError>({

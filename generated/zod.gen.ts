@@ -16,7 +16,7 @@ export const zCreateAppointmentRequest = z.object({
     schedule: z.iso.datetime().optional(),
     primaryPhysician: z.string().optional(),
     reason: z.string().optional(),
-    notes: z.string().optional()
+    notes: z.string().nullish()
 });
 
 export const zForgotPasswordRequest = z.object({
@@ -235,6 +235,11 @@ export const zPostApiPatientsBody = z.object({
  * OK
  */
 export const zPostApiPatientsResponse = zPatientResponse;
+
+/**
+ * OK
+ */
+export const zGetApiCarePulseAuthIsAdminResponse = z.boolean();
 
 export const zPostApiAppointmentsBody = zCreateAppointmentRequest;
 
