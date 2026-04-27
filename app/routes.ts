@@ -5,6 +5,7 @@ export default [
     layout("layouts/ProtectedRoute.tsx", [
         route("auth-success", "routes/AuthSuccess.tsx"),
         route("new-patient", "routes/NewPatientPage.tsx"),
+        route("admin", "routes/AdminPage.tsx"),
         layout("layouts/ProfileRequiredRoute.tsx", [
             ...prefix("appointments", [
                 route("new", "routes/NewAppointment.tsx"),
