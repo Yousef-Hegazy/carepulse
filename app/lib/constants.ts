@@ -104,7 +104,10 @@ export const StatusIcon = {
 
 export const enum QUERY_KEYS {
   PROFILE = "profile",
-}
+  ADMIN_STATS = "admin-stats"
+};
+
+export const DEFAULT_CACHE_TIME = 1000 * 60 * 10; // 10 minutes
 
 export const GendersList = [
   {

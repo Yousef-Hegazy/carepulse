@@ -12,6 +12,21 @@ export const zAccessTokenResponse = z.object({
     refreshToken: z.string()
 });
 
+export const zAppointmentsStatistics = z.object({
+    scheduledCount: z.union([
+        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
+        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
+    ]).optional(),
+    pendingCount: z.union([
+        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
+        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
+    ]).optional(),
+    cancelledCount: z.union([
+        z.int().min(-2147483648, { error: 'Invalid value: Expected int32 to be >= -2147483648' }).max(2147483647, { error: 'Invalid value: Expected int32 to be <= 2147483647' }),
+        z.string().regex(/^-?(?:0|[1-9]\d*)$/)
+    ]).optional()
+});
+
 export const zCreateAppointmentRequest = z.object({
     schedule: z.iso.datetime().optional(),
     primaryPhysician: z.string().optional(),
@@ -247,3 +262,8 @@ export const zPostApiAppointmentsBody = zCreateAppointmentRequest;
  * OK
  */
 export const zPostApiAppointmentsResponse = zAppointmentResponse;
+
+/**
+ * OK
+ */
+export const zGetApiAppointmentsStatisticsResponse = zAppointmentsStatistics;

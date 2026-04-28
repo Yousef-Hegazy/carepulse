@@ -25,6 +25,12 @@ export type AppointmentResponse = {
     updatedAt?: string;
 };
 
+export type AppointmentsStatistics = {
+    scheduledCount?: number | string;
+    pendingCount?: number | string;
+    cancelledCount?: number | string;
+};
+
 export type CreateAppointmentRequest = {
     schedule?: string;
     primaryPhysician?: string;
@@ -437,3 +443,19 @@ export type PostApiAppointmentsResponses = {
 };
 
 export type PostApiAppointmentsResponse = PostApiAppointmentsResponses[keyof PostApiAppointmentsResponses];
+
+export type GetApiAppointmentsStatisticsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/Appointments/statistics';
+};
+
+export type GetApiAppointmentsStatisticsResponses = {
+    /**
+     * OK
+     */
+    200: AppointmentsStatistics;
+};
+
+export type GetApiAppointmentsStatisticsResponse = GetApiAppointmentsStatisticsResponses[keyof GetApiAppointmentsStatisticsResponses];
